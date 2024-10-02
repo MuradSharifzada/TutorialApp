@@ -34,12 +34,10 @@ public class TutorialController {
         tutorialService.addTutorial(tutorial);
     }
 
-
     @PutMapping("/tutorials/{id}")
     public void updateTutorial(@PathVariable Long id, @RequestBody Tutorial tutorial) {
         tutorialService.updateTutorial(tutorial, id);
     }
-
 
 
     @DeleteMapping("/tutorials")
