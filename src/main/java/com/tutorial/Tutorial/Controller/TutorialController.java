@@ -25,10 +25,6 @@ public class TutorialController {
     }
 
     @GetMapping("/tutorials/{id}")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",ref = "Successfully retrieved tutorial"),
-            @ApiResponse(responseCode = "404", ref = "Tutorial not found")
-    })
     public Tutorial findByID(@PathVariable Long id) {
         return tutorialService.findByID(id);
     }
