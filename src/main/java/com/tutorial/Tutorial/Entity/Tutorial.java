@@ -1,6 +1,7 @@
 package com.tutorial.Tutorial.Entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
@@ -11,8 +12,7 @@ import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @Table(name = "tutorial_table")
 @Entity
 public class Tutorial {
@@ -26,6 +26,7 @@ public class Tutorial {
     private String author;
     @Column(name = "published")
     private Boolean isPublished;
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

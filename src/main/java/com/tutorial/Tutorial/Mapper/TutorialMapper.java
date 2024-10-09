@@ -1,0 +1,40 @@
+package com.tutorial.Tutorial.Mapper;
+
+import com.tutorial.Tutorial.DTO.TutorialDTO;
+import com.tutorial.Tutorial.Entity.Tutorial;
+import jakarta.persistence.ManyToMany;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
+
+@Mapper
+public interface TutorialMapper {
+    TutorialMapper INSTANCE = Mappers.getMapper(TutorialMapper.class);
+
+
+    TutorialDTO toDTO(Tutorial tutorial);
+    Tutorial toEntity(TutorialDTO tutorialDTO);
+}
+
+
+//public class TutorialMapper {
+//
+//    public static TutorialDTO toDTO(Tutorial tutorial){
+//        TutorialDTO dto = new TutorialDTO();
+//        dto.setId(tutorial.getId());
+//        dto.setTitle(tutorial.getTitle());
+//        dto.setContent(tutorial.getContent());
+//        dto.setAuthor(tutorial.getAuthor());
+//        dto.setIsPublished(tutorial.getIsPublished());
+//        return dto;
+//    }
+//    public static Tutorial toEntity(TutorialDTO dto){
+//        Tutorial tutorial=new Tutorial();
+//        tutorial.setTitle(dto.getTitle());
+//        tutorial.setContent(dto.getContent());
+//        tutorial.setAuthor(dto.getAuthor());
+//        tutorial.setCreatedAt(dto.getCreatedAt());
+//        tutorial.setUpdatedAt(dto.getUpdatedAt());
+//        tutorial.setIsPublished(dto.getIsPublished());
+//        return tutorial;
+//    }
+//}

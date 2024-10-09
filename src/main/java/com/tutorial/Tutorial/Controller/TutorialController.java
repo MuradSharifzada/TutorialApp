@@ -1,9 +1,8 @@
 package com.tutorial.Tutorial.Controller;
 
-import com.tutorial.Tutorial.Entity.Tutorial;
+import com.tutorial.Tutorial.DTO.TutorialDTO;
+import com.tutorial.Tutorial.Service.Impl.TutorialServiceImpl;
 import com.tutorial.Tutorial.Service.TutorialService;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,23 +19,23 @@ public class TutorialController {
     }
 
     @GetMapping("/tutorials")
-    public List<Tutorial> getAllTutorials() {
+    public List<TutorialDTO> getAllTutorials() {
         return tutorialService.getAll();
     }
 
     @GetMapping("/tutorials/{id}")
-    public Tutorial findByID(@PathVariable Long id) {
+    public TutorialDTO findByID(@PathVariable Long id) {
         return tutorialService.findByID(id);
     }
 
     @PostMapping("/tutorials")
-    public void addTutorial(@RequestBody Tutorial tutorial) {
-        tutorialService.addTutorial(tutorial);
+    public void addTutorial(@RequestBody TutorialDTO tutorialDTO) {
+        tutorialService.addTutorialDTO(tutorialDTO);
     }
 
     @PutMapping("/tutorials/{id}")
-    public void updateTutorial(@PathVariable Long id, @RequestBody Tutorial tutorial) {
-        tutorialService.updateTutorial(tutorial, id);
+    public void updateTutorial(@PathVariable Long id, @RequestBody TutorialDTO tutorialDTO) {
+        tutorialService.updateTutorialDTO(tutorialDTO, id);
     }
 
 

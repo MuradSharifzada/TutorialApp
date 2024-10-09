@@ -1,20 +1,20 @@
 package com.tutorial.Tutorial.Service;
-import com.tutorial.Tutorial.Entity.Tutorial;
+import com.tutorial.Tutorial.DTO.TutorialDTO;
 
 import java.util.List;
 
 public interface TutorialService {
-    void addTutorial(Tutorial tutorial);
+    void addTutorialDTO(TutorialDTO tutorialDTO);
 
-    void updateTutorial(Tutorial tutorial, Long id);
+    void updateTutorialDTO(TutorialDTO tutorialDTO, Long id);
 
-    Tutorial findByID(Long id);
+    TutorialDTO findByID(Long id);
 
     void deleteById(Long id);
 
-    List<Tutorial> getAll();
+    List<TutorialDTO> getAll();
 
-    List<Tutorial> getByPublished(boolean published);
+    List<TutorialDTO> getByPublished(boolean published);
 
     void deleteAll();
 
