@@ -1,16 +1,11 @@
-package com.tutorial.Tutorial.Entity;
+package com.tutorial.Tutorial.Model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.annotations.UuidGenerator;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Service;
 
-import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 import java.time.LocalDateTime;
-import java.util.UUID;
+
 
 @Data
 @Table(name = "tutorial_table")
@@ -20,7 +15,7 @@ public class Tutorial {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
-
+    @NotBlank
     private String title;
     private String content;
     private String author;
