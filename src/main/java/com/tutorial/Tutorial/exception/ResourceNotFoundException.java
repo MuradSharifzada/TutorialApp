@@ -1,4 +1,4 @@
-package com.tutorial.Tutorial.Exception;
+package com.tutorial.Tutorial.exception;
 
 import lombok.Getter;
 
