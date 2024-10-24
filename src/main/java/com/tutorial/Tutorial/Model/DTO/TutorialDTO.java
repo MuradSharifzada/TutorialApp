@@ -1,16 +1,23 @@
-package com.tutorial.Tutorial.DTO;
+package com.tutorial.Tutorial.Model.DTO;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-public class TutorialDTO {
+public class TutorialDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
-    private String title;
+
+    @NotBlank(message = "content must not be empty ")
     private String content;
-    private String author;
     private Boolean isPublished;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    //private User user;
+
+    @NotBlank(message = "title must not be empty")
+    private String title;
 }

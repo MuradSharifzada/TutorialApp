@@ -1,11 +1,17 @@
 package com.tutorial.Tutorial.Controller;
 
 import com.tutorial.Tutorial.Model.DTO.TutorialDTO;
+import com.tutorial.Tutorial.Model.Entity.Tutorial;
 import com.tutorial.Tutorial.Service.TutorialService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.persistence.Column;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +20,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class TutorialController {
     private final TutorialService tutorialService;
+
 
     @Autowired
     public TutorialController(TutorialService tutorialService) {
@@ -49,8 +56,8 @@ public class TutorialController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @PostMapping("/tutorials")
-    public void addTutorial(@RequestBody TutorialDTO tutorialDTO) {
-        tutorialService.addTutorialDTO(tutorialDTO);
+    public void addTutorial(@Valid @RequestBody TutorialDTO tutorial) {
+        tutorialService.addTutorialDTO(tutorial);
     }
 
     @Operation(summary = "Update Tutorial", description = "This method responsible updating tutorial ")
@@ -63,7 +70,6 @@ public class TutorialController {
     public void updateTutorial(@PathVariable Long id, @RequestBody TutorialDTO tutorialDTO) {
         tutorialService.updateTutorialDTO(tutorialDTO, id);
     }
-
 
     @Operation(summary = "Delete Tutorials", description = "This method responsible deleting all tutorial ")
     @ApiResponses(value = {

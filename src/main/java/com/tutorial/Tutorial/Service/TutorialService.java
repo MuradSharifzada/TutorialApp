@@ -1,5 +1,6 @@
 package com.tutorial.Tutorial.Service;
-import com.tutorial.Tutorial.DTO.TutorialDTO;
+import com.tutorial.Tutorial.Model.DTO.TutorialDTO;
+import com.tutorial.Tutorial.Model.Entity.Tutorial;
 
 import java.util.List;
 

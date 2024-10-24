@@ -1,8 +1,7 @@
 package com.tutorial.Tutorial.Mapper;
 
-import com.tutorial.Tutorial.DTO.TutorialDTO;
-import com.tutorial.Tutorial.Entity.Tutorial;
-import jakarta.persistence.ManyToMany;
+import com.tutorial.Tutorial.Model.DTO.TutorialDTO;
+import com.tutorial.Tutorial.Model.Entity.Tutorial;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
