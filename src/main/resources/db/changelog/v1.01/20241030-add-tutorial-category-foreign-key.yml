@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: "Murad Sharifzada"
+      changes:
+        - addColumn:
+            tableName: "tutorial_table"
+            columns:
+              - column:
+                  name: "category_id"
+                  type: BIGINT
+        - addForeignKeyConstraint:
+            baseTableName: "tutorial_table"
+            baseColumnNames: "category_id"
+            referencedTableName: "category"
+            referencedColumnNames: "id"
+            constraintName: "fk_tutorial_category"
