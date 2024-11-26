@@ -1,6 +1,6 @@
 package com.tutorial.Tutorial.service;
 
-import com.tutorial.Tutorial.model.dto.CategoryDTO;
+import com.tutorial.Tutorial.dto.CategoryDTO;
 
 import java.util.List;
 

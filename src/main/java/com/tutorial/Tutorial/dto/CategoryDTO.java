@@ -1,4 +1,4 @@
-package com.tutorial.Tutorial.model.dto;
+package com.tutorial.Tutorial.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

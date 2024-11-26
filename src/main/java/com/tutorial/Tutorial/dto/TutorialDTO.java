@@ -1,5 +1,6 @@
-package com.tutorial.Tutorial.Model.DTO;
+package com.tutorial.Tutorial.model.dto;
 
+import com.tutorial.Tutorial.validation.UniqueTitle;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -19,5 +20,6 @@ public class TutorialDTO implements Serializable {
     //private User user;
 
     @NotBlank(message = "title must not be empty")
+    @UniqueTitle(message = "Title name must be unique,this title name already exist")
     private String title;
 }

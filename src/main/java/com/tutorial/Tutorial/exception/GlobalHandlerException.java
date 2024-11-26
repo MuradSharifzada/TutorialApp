@@ -1,7 +1,5 @@
-package com.tutorial.Tutorial.advice;
+package com.tutorial.Tutorial.exception;
 
-import com.tutorial.Tutorial.exception.*;
-import com.tutorial.Tutorial.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

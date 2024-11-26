@@ -1,7 +1,5 @@
-package com.tutorial.Tutorial.Model.Entity;
+package com.tutorial.Tutorial.model.entity;
 
-import com.tutorial.Tutorial.Validation.UniqueTitle;
-import com.tutorial.Tutorial.Validation.UniqueTutorialTitleValidiator;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -19,7 +17,6 @@ public class Tutorial {
     @Column(nullable = false)
     private Long id;
 
-   //  @UniqueTitle(message = "Title name must be unique,this title name already exist")
     @Column(unique = true)
     @Size(min = 1, max = 200, message = "title must be between 1 and 200 characters")
     @Schema(description = "Title of the entity", example = "Some title", required = true, maxLength = 200)
