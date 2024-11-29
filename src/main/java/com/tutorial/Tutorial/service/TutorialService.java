@@ -1,6 +1,5 @@
-package com.tutorial.Tutorial.Service;
-import com.tutorial.Tutorial.Model.DTO.TutorialDTO;
-import com.tutorial.Tutorial.Model.Entity.Tutorial;
+package com.tutorial.Tutorial.service;
+import com.tutorial.Tutorial.dto.TutorialDTO;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public interface TutorialService {
 
     void deleteById(Long id);
 
-    List<TutorialDTO> getAll();
+    List<TutorialDTO> getAllTutorials();
 
     List<TutorialDTO> getByPublished(boolean published);
 

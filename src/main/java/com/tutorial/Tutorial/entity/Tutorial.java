@@ -1,9 +1,12 @@
-package com.tutorial.Tutorial.model.entity;
+package com.tutorial.Tutorial.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +14,9 @@ import java.time.LocalDateTime;
 @Data
 @Table(name = "tutorial_table")
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Tutorial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,11 +43,12 @@ public class Tutorial {
     @JoinColumn(name = "category_id",nullable = false)
     private Category category;
 
+
 //    @Column(name = "author_name", length = 100)
 //    private String authorName;
 
 //    @OneToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "user_id")
-//    private User user;
+//    private Client user;
 
 }

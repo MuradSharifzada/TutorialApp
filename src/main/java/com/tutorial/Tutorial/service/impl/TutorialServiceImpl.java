@@ -1,15 +1,20 @@
-package com.tutorial.Tutorial.Service.Impl;
+package com.tutorial.Tutorial.service.impl;
 
-import com.tutorial.Tutorial.Model.DTO.TutorialDTO;
-import com.tutorial.Tutorial.Model.Entity.Tutorial;
+import com.tutorial.Tutorial.client.NotificationClient;
+import com.tutorial.Tutorial.dto.request.NotificationRequest;
+import com.tutorial.Tutorial.dto.TutorialDTO;
+import com.tutorial.Tutorial.entity.Client;
+import com.tutorial.Tutorial.entity.Tutorial;
 import com.tutorial.Tutorial.exception.ResourceNotFoundByGivenID;
 import com.tutorial.Tutorial.exception.ResourceNotFoundException;
-import com.tutorial.Tutorial.Mapper.TutorialMapper;
-import com.tutorial.Tutorial.Repository.TutorialRepository;
-import com.tutorial.Tutorial.Service.TutorialService;
+import com.tutorial.Tutorial.mapper.TutorialMapper;
+import com.tutorial.Tutorial.repository.ClientRepository;
+import com.tutorial.Tutorial.repository.TutorialRepository;
+import com.tutorial.Tutorial.service.TutorialService;
+import feign.FeignException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -19,31 +24,60 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TutorialServiceImpl implements TutorialService {
     private static final Logger log = LoggerFactory.getLogger(TutorialServiceImpl.class);
     private final TutorialRepository tutorialRepository;
+    private final NotificationClient notificationClient;
+    private final ClientRepository clientRepository;
 
-    @Autowired
-    public TutorialServiceImpl(TutorialRepository tutorialRepo) {
-        this.tutorialRepository = tutorialRepo;
-    }
 
     private final TutorialMapper tutorialMapper = TutorialMapper.INSTANCE;
 
 
     @Override
-    @CachePut(value = "tutorials",key = "#tutorialDto.getId()")
+    @CachePut(value = "tutorials", key = "#tutorialDto.getId()")
     public void addTutorialDTO(TutorialDTO tutorialDto) {
         log.info("Starting process to add a new tutorial to the database...");
         try {
             Tutorial tutorial = tutorialMapper.toEntity(tutorialDto);
             tutorialRepository.save(tutorial);
             log.info("Successfully added tutorial titled '{}' to the database.", tutorialDto.getTitle());
+
+
+            List<Client> clients = clientRepository.findAll();
+            if (clients.isEmpty()) {
+                log.warn("No clients found. Skipping notification sending.");
+            } else {
+                for (Client client : clients) {
+                    NotificationRequest request = new NotificationRequest();
+                    request.setRecipient(client.getEmail());
+                    request.setSubject("New Notification - New Tutorial Published!!!"); // Custom subject
+                    request.setMessage("Check out our new tutorial:\n\nNew Tutorial Published!!!\n\n" +
+                            "Hello, " + client.getUsername() + "!\n\n" +
+                            "We just published a new tutorial titled: " + tutorial.getTitle() + ". " +
+                            "You can find it in your tutorial library or on our website.\n\n" +
+                            "Best regards,\nYour Tutorial Team");
+
+                    log.info("Attempting to send notification to client with email: {}", client.getEmail());
+
+                    try {
+                        notificationClient.sendNotification(request);
+                        log.info("Notification sent successfully to {}.", client.getEmail());
+                    } catch (FeignException e) {
+                        log.error("Failed to send notification to {}. Reason: {}", client.getEmail(), e.getMessage(), e);
+                    }
+                }
+            }
         } catch (ResourceNotFoundException e) {
             log.error("Failed to add tutorial. Reason: Tutorial not found.");
             throw new ResourceNotFoundException("Tutorial doesn't exist");
+        } catch (Exception e) {
+            log.error("An unexpected error occurred while adding the tutorial: {}", e.getMessage(), e);
+            throw new RuntimeException("An error occurred while processing the tutorial.");
         }
     }
+
 
     @Override
     @CachePut(value = "tutorials", keyGenerator = "customKeyGenerator")
@@ -57,7 +91,7 @@ public class TutorialServiceImpl implements TutorialService {
         //existingTutorial.setAuthor(tutorialDTO.getAuthor());
         existingTutorial.setContent(tutorialDTO.getContent());
         existingTutorial.setIsPublished(tutorialDTO.getIsPublished());
-//        existingTutorial.setUpdatedAt(OffsetDateTime.now());
+//        existingTutorial.setUpdatedAt(LocalDateTime.now());
 
         tutorialRepository.save(existingTutorial);
         log.info("Successfully updated tutorialDTO with ID: {}", id);
@@ -92,7 +126,7 @@ public class TutorialServiceImpl implements TutorialService {
 
     @Override
     @Cacheable(value = "tutorials", keyGenerator = "customKeyGenerator")
-    public List<TutorialDTO> getAll() {
+    public List<TutorialDTO> getAllTutorials() {
         log.info("Fetching all tutorials from the database...");
         List<Tutorial> tutorials;
         try {
