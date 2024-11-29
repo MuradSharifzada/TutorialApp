@@ -1,1 +1,1 @@
-# TutorialApp-JPA
+# TutorialApp
