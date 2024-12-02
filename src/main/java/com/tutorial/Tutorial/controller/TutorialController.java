@@ -1,17 +1,12 @@
-package com.tutorial.Tutorial.Controller;
+package com.tutorial.Tutorial.controller;
 
-import com.tutorial.Tutorial.Model.DTO.TutorialDTO;
-import com.tutorial.Tutorial.Model.Entity.Tutorial;
-import com.tutorial.Tutorial.Service.TutorialService;
+import com.tutorial.Tutorial.dto.TutorialDTO;
+import com.tutorial.Tutorial.service.TutorialService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.persistence.Column;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,7 +30,7 @@ public class TutorialController {
     })
     @GetMapping("/tutorials")
     public List<TutorialDTO> getAllTutorials() {
-        return tutorialService.getAll();
+        return tutorialService.getAllTutorials();
     }
 
 
@@ -45,7 +40,7 @@ public class TutorialController {
             @ApiResponse(responseCode = "404", description = "Tutorial not found ")
     })
     @GetMapping("/tutorials/{id}")
-    public TutorialDTO findByID(@PathVariable Long id) {
+    public TutorialDTO findTutorialById(@PathVariable Long id) {
         return tutorialService.findByID(id);
     }
 
@@ -55,8 +50,7 @@ public class TutorialController {
             @ApiResponse(responseCode = "409", description = "Tutorial Already exist"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PostMapping("/tutorials")
-    public void addTutorial(@Valid @RequestBody TutorialDTO tutorial) {
+    public void createTutorial(@Valid @RequestBody TutorialDTO tutorial) {
         tutorialService.addTutorialDTO(tutorial);
     }
 
@@ -66,7 +60,7 @@ public class TutorialController {
             @ApiResponse(responseCode = "404", description = "Tutorial not exist"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @PutMapping("/tutorials/{id}")
+     @PutMapping("/tutorials/{id}")
     public void updateTutorial(@PathVariable Long id, @RequestBody TutorialDTO tutorialDTO) {
         tutorialService.updateTutorialDTO(tutorialDTO, id);
     }
