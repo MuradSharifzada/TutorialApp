@@ -1,20 +1,27 @@
-package com.tutorial.Tutorial.Validation;
+package com.tutorial.Tutorial.validation;
 
-import com.tutorial.Tutorial.Repository.TutorialRepository;
+import com.tutorial.Tutorial.repository.TutorialRepository;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class UniqueTutorialTitleValidiator implements ConstraintValidator<UniqueTitle, String> {
-
-    @Autowired
-    private TutorialRepository tutorialRepository;
+    private final TutorialRepository tutorialRepository;
 
     @Override
     public boolean isValid(String title, ConstraintValidatorContext context) {
         if (title == null || title.trim().isEmpty()) {
             return true;
         }
-        return !tutorialRepository.existsByTitle(title);
+        boolean exists = tutorialRepository.existsByTitle(title);
+        if (exists) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("This title already exists please use other title")
+                    .addConstraintViolation();
+            return false;
+        }
+
+        return true;
     }
 }
