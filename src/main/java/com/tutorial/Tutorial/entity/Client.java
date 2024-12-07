@@ -1,41 +1,37 @@
 package com.tutorial.Tutorial.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Data
-@Table(name = "user_table")
-public class User {
+@Table(name = "client_table")
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Email
-    @Column(nullable = false, unique = true, length = 100)
     private String email;
-
-    @Column(nullable = false, length = 30)
     private String username;
-
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=\\S+$).{8,20}$"
-            , message = "Password must be 8-20 characters long" +
-            ", contain at least one uppercase letter, one lowercase letter" +
-            ", one number, and one special character (@#$%^&+=!)" +
-            ", and must not contain spaces.")
     private String password;
-
-//    @Column(name = "birth_date")
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-//    private LocalDate birthDate;
+    private LocalDateTime updatedAt;
+    private LocalDateTime createdAt;
 
 
-//    @Column(name = "joined_date")
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-//    private OffsetDateTime joinedDate;
+    @ElementCollection(targetClass = RoleType.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "client_roles", joinColumns = @JoinColumn(name = "client_id"))
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Set<RoleType> roles = new HashSet<>();
 //
 //    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
 //    private Tutorial tutorial;
