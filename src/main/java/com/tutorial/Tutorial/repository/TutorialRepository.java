@@ -1,6 +1,6 @@
-package com.tutorial.Tutorial.Repository;
+package com.tutorial.Tutorial.repository;
 
-import com.tutorial.Tutorial.Model.Entity.Tutorial;
+import com.tutorial.Tutorial.entity.Tutorial;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +11,6 @@ public interface TutorialRepository extends JpaRepository<Tutorial, Long> {
 
     List<Tutorial> findByIsPublished(boolean published);
 
-
     boolean existsByTitle(String title);
+
 }

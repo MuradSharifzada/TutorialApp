@@ -1,4 +1,4 @@
-package com.tutorial.Tutorial.response;
+package com.tutorial.Tutorial.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

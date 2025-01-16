@@ -1,6 +1,6 @@
 package com.tutorial.Tutorial.repository;
 
-import com.tutorial.Tutorial.model.entity.Category;
+import com.tutorial.Tutorial.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

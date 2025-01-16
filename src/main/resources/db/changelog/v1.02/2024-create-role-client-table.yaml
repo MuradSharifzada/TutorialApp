@@ -1,0 +1,48 @@
+databaseChangeLog:
+#  - changeSet:
+#      id: 5
+#      author: Murad Sharifzada
+#      changes:
+#        - createTable:
+#            tableName: client_roles
+#            columns:
+#              - column:
+#                  name: client_id
+#                  type: BIGINT
+#                  constraints:
+#                    nullable: false
+#                    foreignKeyName: fk_client_roles_client
+#                    references: client_table(id)
+#              - column:
+#                  name: role
+#                  type: VARCHAR(10)
+#                  constraints:
+#                    nullable: false
+#        - addUniqueConstraint:
+#            tableName: client_roles
+#            columnNames: client_id, role
+#            constraintName: unique_client_role
+  - changeSet:
+      id: 5
+      author: Murad Sharifzada
+      changes:
+        - createTable:
+            tableName: client_roles
+            columns:
+              - column:
+                  name: client_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: client_roles
+            baseColumnNames: client_id
+            referencedTableName: client_table
+            referencedColumnNames: id
+            constraintName: fk_client_roles_client_id
+

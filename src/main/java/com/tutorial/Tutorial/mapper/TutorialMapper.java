@@ -1,7 +1,7 @@
-package com.tutorial.Tutorial.Mapper;
+package com.tutorial.Tutorial.mapper;
 
-import com.tutorial.Tutorial.Model.DTO.TutorialDTO;
-import com.tutorial.Tutorial.Model.Entity.Tutorial;
+import com.tutorial.Tutorial.dto.TutorialDTO;
+import com.tutorial.Tutorial.entity.Tutorial;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,6 +12,7 @@ public interface TutorialMapper {
 
     TutorialDTO toDTO(Tutorial tutorial);
     Tutorial toEntity(TutorialDTO tutorialDTO);
+
 }
 
 

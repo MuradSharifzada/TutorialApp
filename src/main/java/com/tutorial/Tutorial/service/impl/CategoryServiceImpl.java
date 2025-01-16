@@ -1,8 +1,8 @@
 package com.tutorial.Tutorial.service.impl;
 
 import com.tutorial.Tutorial.mapper.CategoryMapper;
-import com.tutorial.Tutorial.model.dto.CategoryDTO;
-import com.tutorial.Tutorial.model.entity.Category;
+import com.tutorial.Tutorial.dto.CategoryDTO;
+import com.tutorial.Tutorial.entity.Category;
 import com.tutorial.Tutorial.repository.CategoryRepository;
 import com.tutorial.Tutorial.service.CategoryService;
 import com.tutorial.Tutorial.exception.ResourceAlreadyExistException;
